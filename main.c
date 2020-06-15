@@ -4,12 +4,26 @@
 
 
 Semaphore S1; 
+void chrono (int sig) { 
+    
+   
+    execlp("open", "open", "https://github.com/deva0kh/mini_shell", NULL);
+        perror("Erreur lors de l'exécution de la commande.");
+    } 
 
 void getSignal(int sig)
 {
-    
+    if (sig == SIGINT) {
     printf("\nMerci pour utiliser mon shell\n");
-    sleep(2);
+    sleep(2); }
+    else if (sig == SIGTSTP){
+    signal(SIGALRM, chrono); 
+    printf("\nouvrir dans 3 secondes\n"); 
+    printf("Merci pour utiliser mon shell\n"); 
+    printf("***************Khallouk Achraf*****************\n"); 
+    alarm(3); 
+    sleep(3);
+    }
     exit(0);
 }
 
@@ -29,7 +43,7 @@ void cmd_execute(char **args)
     {
         P(S1);
        
-        execlp("/Users/devmqk/Desktop/00000/MT/linux\(appel_systeme\)/appelSysteme/projet/cmd1", "/Users/devmqk/Desktop/00000/MT/linux\(appel_systeme\)/appelSysteme/projet/cmd1", args[0], args[1], args[2], NULL);
+        execlp("/Users/devmqk/Desktop/00000/MT/linux\(appel_systeme\)/appelSysteme/projet/cmd", "/Users/devmqk/Desktop/00000/MT/linux\(appel_systeme\)/appelSysteme/projet/cmd", args[0], args[1], args[2], NULL);
         perror("Erreur lors de l'exécution de la commande.");
         exit(0);
     }
@@ -50,7 +64,7 @@ void start_shell(void)
   
     Initsem(S1, 1);
     signal(SIGINT, getSignal);
-    signal(SIGSTOP,getSignal);
+    signal(SIGTSTP,getSignal);
     while (1)
     {
         printf("%s#",getenv("USER"));

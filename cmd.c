@@ -9,7 +9,7 @@ typedef struct
     char *key;
     int val;
 } CMD;
-
+//
 
 CMD table_commandes[] = {
     {"menu",SHELL_MENU},

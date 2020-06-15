@@ -9,7 +9,7 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 
-
+//
 // les commandes
 #define NOCMD -1
 #define LISTER 1
